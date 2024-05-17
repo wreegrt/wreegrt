@@ -1,0 +1,58 @@
+  # 启动10个线程下载头像
+    for i in range(1, 10):
+        t = Thread(target=download_head_image,args=(i,))
+        t.start()
+    print(u'微信好友头像信息获取完毕\n')
+
+
+    print(u'正在分析好友性别比例，请耐心等待……')
+    sex_ratio()
+    print(u'分析好友性别比例完毕\n')
+
+
+    print(u'正在分析好友地区分布，请耐心等待……')
+    region_distribution()
+    print(u'分析好友地区分布完毕\n')
+
+    print(u'正在统计你认识的好友，请耐心等待……')
+    statistics_friends()
+    print(u'统计你认识的好友完毕\n')
+
+    print(u'正在分析你最亲密的人，请耐心等待……')
+    analyze_remark_name()
+    print(u'分析你最亲密的人完毕\n')
+
+    print(u'正在分析你的特殊好友，请耐心等待……')
+    analyze_special_friends()
+    print(u'分析你的特殊好友完毕\n')
+
+    print(u'正在分析你的好友的个性签名，请耐心等待……')
+    analyze_signature()
+    print(u'分析你的好友的个性签名完毕\n')
+
+
+
+
+    # 由于下载头像是多线程进行，并且存在可能下载时间比较久的情况
+    # 所以当我们完成所有其他功能以后，需要等待微信好友头像数据下载完毕后再进行操作
+    while(not queue_head_image.empty()):
+        sleep(1)
+
+    print(u'正在拼接所有微信好友头像数据，请耐心等待……')
+    merge_head_image()
+    print(u'拼接所有微信好友头像数据完毕\n')
+
+    print(u'正在检测使用人脸作为头像的好友数量，请耐心等待……')
+    detect_human_face()
+    print(u'检测使用人脸作为头像的好友数量完毕\n')
+
+
+    # 生成一份最终的html文件
+    print(u'所有数据获取完毕，正在生成微信个人数据报告，请耐心等待……')
+    generate_html('微信个人数据报告.html')
+    print(u'生成微信个人数据报告完毕，该文件为当前目录下的[微信个人数据报告.html]\n')
+
+
+    # 调用系统方式自动打开这个html文件
+    print(u'已为你自动打开 微信个人数据报告.html')
+    open_html('微信个人数据报告.html')
