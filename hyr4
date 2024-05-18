@@ -1,0 +1,47 @@
+ # 登录成功后，把返回的cookies合并进去
+        cookies_back_dict = dict_from_cookiejar(html.cookies)
+        self.cookies_merge_dict_in_qzone_qq_com.update(cookies_back_dict)
+
+
+        # 获取此次登录的qq号码
+        qq_list = re.findall(r'&uin=(.+?)&service', html.text)
+        self.qq_number = qq_list[0]
+
+        # 登录成功后，会返回一个地址，需要对该地址进行访问以便获取新的返回cookies
+        startIndex = (html.text).find('http')
+        endIndex = (html.text).find('pt_3rd_aid=0')
+        url = (html.text)[startIndex:endIndex] + 'pt_3rd_aid=0'
+
+        # 屏蔽https证书警告
+        urllib3.disable_warnings()
+
+        # 这里需要注意的是，需要禁止重定向，才能正确获得返回的cookies
+        html = get(url, cookies=self.cookies_merge_dict_in_qzone_qq_com, allow_redirects=False, verify=False)
+        # 把返回的cookies合并进去
+        cookies_back_dict = dict_from_cookiejar(html.cookies)
+        self.cookies_merge_dict_in_qzone_qq_com.update(cookies_back_dict)
+
+
+
+
+
+
+    def login_id_qq_com(self):
+        # 登录id.qq.com
+
+        # 访问网页，为了获取参数pt_login_sig
+        login_url = 'https://xui.ptlogin2.qq.com/cgi-bin/xlogin?pt_disable_pwd=1&appid=1006102&daid=1&style=23&hide_border=1&proxy_url=https://id.qq.com/login/proxy.html&s_url=https://id.qq.com/index.html'
+        html = get_html(login_url, '')
+        # 对返回的cookies进行转化为dict类型，方便处理
+        cookies_back_dict = dict_from_cookiejar(html.cookies)
+        pt_login_sig = cookies_back_dict['pt_login_sig']
+        self.cookies_merge_dict_in_id_qq_com.update(cookies_back_dict)
+
+        # 访问网页，为了获取参数ptqrtoken
+        qrcode_url = 'https://ssl.ptlogin2.qq.com/ptqrshow?appid=1006102&e=2&l=M&s=4&d=72&v=4&t=0.10239549811477189&daid=1&pt_3rd_aid=0'
+        html = get_html(qrcode_url, '')
+        # 对返回的cookies进行转化为dict类型，方便处理
+        cookies_back_dict = dict_from_cookiejar(html.cookies)
+        qrsig = cookies_back_dict['qrsig']
+        ptqrtoken = hash33_token(qrsig)
+        self.cookies_merge_dict_in_id_qq_com.update(cookies_back_dict)
