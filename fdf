@@ -1,0 +1,61 @@
+    # 保存到云盘布局开始
+
+        labelframe_movie_save_cloud_disk = LabelFrame(root, width=324, height=230, text="云盘搜索")
+        labelframe_movie_save_cloud_disk.place(x=340, y=305)
+        self.labelframe_movie_save_cloud_disk = labelframe_movie_save_cloud_disk
+
+        # 框架布局，承载多个控件
+        frame_root_save_cloud_disk = Frame(labelframe_movie_save_cloud_disk, width=324)
+        frame_l_save_cloud_disk = Frame(frame_root_save_cloud_disk)
+        frame_r_save_cloud_disk = Frame(frame_root_save_cloud_disk)
+        self.frame_root_save_cloud_disk = frame_root_save_cloud_disk
+        self.frame_l_save_cloud_disk = frame_l_save_cloud_disk
+        self.frame_r_save_cloud_disk = frame_r_save_cloud_disk
+
+        # 表格
+        columns_save_cloud_disk = ("来源名称", "是否有效","播放地址")
+        treeview_save_cloud_disk = ttk.Treeview(frame_l_save_cloud_disk, height=10, show="headings", columns=columns_save_cloud_disk)
+        treeview_save_cloud_disk.column("来源名称", width=90, anchor='center')
+        treeview_save_cloud_disk.column("是否有效", width=80, anchor='center')
+        treeview_save_cloud_disk.column("播放地址", width=120, anchor='center')
+        treeview_save_cloud_disk.heading("来源名称", text="来源名称")
+        treeview_save_cloud_disk.heading("是否有效", text="是否有效")
+        treeview_save_cloud_disk.heading("播放地址", text="播放地址")
+
+        #垂直滚动条
+        vbar_save_cloud_disk = ttk.Scrollbar(frame_r_save_cloud_disk, command=treeview_save_cloud_disk.yview)
+        treeview_save_cloud_disk.configure(yscrollcommand=vbar_save_cloud_disk.set)
+
+        treeview_save_cloud_disk.pack()
+        self.treeview_save_cloud_disk = treeview_save_cloud_disk
+        vbar_save_cloud_disk.pack(side=RIGHT, fill=Y)
+        self.vbar_save_cloud_disk = vbar_save_cloud_disk
+
+        # 框架的位置布局
+        frame_l_save_cloud_disk.grid(row=0, column=0, sticky=NSEW)
+        frame_r_save_cloud_disk.grid(row=0, column=1, sticky=NS)
+        frame_root_save_cloud_disk.place(x=5, y=0)
+
+        # 保存到云盘布局结束
+
+
+
+
+
+
+
+
+
+        # BT下载布局开始
+
+        labelframe_movie_bt_download = LabelFrame(root, width=324, height=230, text="影视下载")
+        labelframe_movie_bt_download.place(x=670, y=305)
+        self.labelframe_movie_bt_download = labelframe_movie_bt_download
+
+        # 框架布局，承载多个控件
+        frame_root_bt_download = Frame(labelframe_movie_bt_download, width=324)
+        frame_l_bt_download = Frame(frame_root_bt_download)
+        frame_r_bt_download = Frame(frame_root_bt_download)
+        self.frame_root_bt_download = frame_root_bt_download
+        self.frame_l_bt_download = frame_l_bt_download
+        self.frame_r_bt_download = frame_r_bt_download
