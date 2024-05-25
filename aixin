@@ -1,0 +1,10 @@
+def colorChange(color, age):
+    r, g, b = color
+    if age > 255:
+        age = 255
+    if age <= 85:
+        return (r+age, g, b)
+    elif age <= 170:
+        return (r, g+age-85, b)
+    else:
+        return (r, g, b+age-170)
