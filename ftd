@@ -1,0 +1,33 @@
+ # 模拟向下滑动浏览
+    def swipe_down(self,second):
+        for i in range(int(second/0.1)):
+            #根据i的值，模拟上下滑动
+            if(i%2==0):
+                js = "var q=document.documentElement.scrollTop=" + str(300+400*i)
+            else:
+                js = "var q=document.documentElement.scrollTop=" + str(200 * i)
+            self.browser.execute_script(js)
+            sleep(0.1)
+
+        js = "var q=document.documentElement.scrollTop=100000"
+        self.browser.execute_script(js)
+        sleep(0.1)
+
+
+    # 爬取淘宝 我已买到的宝贝商品数据
+    def crawl_good_buy_data(self):
+
+        # 对我已买到的宝贝商品数据进行爬虫
+        self.browser.get("https://buyertrade.taobao.com/trade/itemlist/list_bought_items.htm")
+
+        # 遍历所有页数
+        for page in range(1,1000):
+
+            # 等待该页面全部已买到的宝贝商品数据加载完毕
+            good_total = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#tp-bought-root > div.js-order-container')))
+
+            # 获取本页面源代码
+            html = self.browser.page_source
+
+            # pq模块解析网页源代码
+            doc = pq(html)
