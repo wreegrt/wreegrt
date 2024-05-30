@@ -1,0 +1,20 @@
+import turtle as t
+t.penup()
+t.seth(-90)
+t.fd(160)
+t.pendown()
+t.pensize(20)
+t.colormode(255)
+for j in range(10):
+  t.speed(0)
+  t.pencolor(20*j,2*j,20*j)
+  t.seth(130)
+  t.fd(215)
+  for i in range(23):
+    t.circle(-80,10)
+  t.seth(100)
+  for i in range(23):
+    t.circle(-80,10)
+  t.fd(215)
+t.hideturtle()
+t.done()
