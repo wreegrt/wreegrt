@@ -1,0 +1,23 @@
+class Parent {
+  constructor(name) {
+    this.name = name;
+  }
+  getName() {
+    console.log(this.name);
+  }
+}
+ 
+class Child extends Parent {
+  constructor(name, age) {
+    //使用this之前必须先调用super(),它调用父类的构造函数并绑定父类的属性和方法
+    super(name);
+    //之后子类的构造函数再进一步访问和修改 this
+    this.age = age;
+  }
+}
+ 
+// 测试
+let child = new Child("kevin", 18);
+console.log(child.name); // kevin
+console.log(child.age); // 18
+child.getName(); // kevin
