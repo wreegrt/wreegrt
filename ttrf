@@ -1,0 +1,18 @@
+import java.util.ArrayList;
+
+ArrayList<String> list = new ArrayList<>();
+list.add("Java");
+list.add("Python");
+list.add("C++");
+System.out```java
+.println(list); // 应输出：[Java, Python, C++]
+
+
+import java.util.HashMap;
+
+HashMap<String, Integer> map = new HashMap<>();
+map.put("Apple", 1);
+map.put("Banana", 2);
+map.put("Cherry", 3);
+System.out.println(map.get("Apple")); // 应输出：1
+ 
