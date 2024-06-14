@@ -1,0 +1,57 @@
+     // 获取当前行的学生信息
+        function getCurrentRowData(obj) {
+            var currentRow = obj.closest('tr');
+            var rowData = {
+                name: currentRow.querySelector('td[data-field="name"]').textContent,
+                g1: parseFloat(currentRow.querySelector('td[data-field="g1"]').textContent),
+                g2: parseFloat(currentRow.querySelector('td[data-field="g2"]').textContent),
+                g3: parseFloat(currentRow.querySelector('td[data-field="g3"]').textContent),
+                g4: parseFloat(currentRow.querySelector('td[data-field="g4"]').textContent),
+                g5: parseFloat(currentRow.querySelector('td[data-field="g5"]').textContent),
+                g6: parseFloat(currentRow.querySelector('td[data-field="g6"]').textContent)
+            };
+            return rowData;
+        }
+ 
+        //雷达图
+          window.radarChart=function (obj) {
+            // 获取当前行的数据
+            var currentRowData = getCurrentRowData(obj);
+ 
+            // 构建雷达图数据
+            var radarChartData = {
+                labels: ['成绩1', '成绩2', '成绩3', '成绩4', '成绩5', '成绩6'],
+                datasets: [{
+                    label: '雷达图',
+                    data: [currentRowData.g1, currentRowData.g2, currentRowData.g3, currentRowData.g4, currentRowData.g5, currentRowData.g6],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)', // 填充颜色
+                    borderColor: 'rgba(75, 192, 192, 1)', // 边框颜色
+                    borderWidth: 1 // 边框宽度
+                }]
+            };
+ 
+            // 创建 canvas 元素
+            var canvas = document.createElement('canvas');
+            canvas.width = 400; // 设置宽度
+            canvas.height = 400; // 设置高度
+ 
+            // 将 canvas 元素添加到页面
+            document.body.appendChild(canvas);
+ 
+            // 创建雷达图
+            var ctx = canvas.getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: radarChartData,
+                options: {
+                    responsive: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+ 
+     
