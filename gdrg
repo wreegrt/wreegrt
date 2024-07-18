@@ -1,0 +1,25 @@
+import requests
+from bs4 import BeautifulSoup
+from pymongo import MongoClient
+ 
+# 连接到MongoDB
+client = MongoClient('localhost', 27017)
+db = client['web_crawler']
+collection = db['example_data']
+ 
+# 发送HTTP请求
+url = 'http://example.com'
+response = requests.get(url)
+ 
+# 解析HTML
+soup = BeautifulSoup(response.content, 'html.parser')
+ 
+# 提取数据并存储到MongoDB
+for item in soup.find_all('a'):
+    data = {
+        'title': item.get_text(),
+        'link': item.get('href')
+    }
+    collection.insert_one(data)
+ 
+print("Data stored in MongoDB")
